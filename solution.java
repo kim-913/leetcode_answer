@@ -50,4 +50,38 @@ public class solution {
         }
         return;
     }
+
+    // LeetCode 54
+    // four pointers, memorize when to loop forward and backward, kind of
+    // complecated
+    public static List<Integer> spiralOrder(int[][] matrix) {
+        List<Integer> res = new ArrayList();
+        if (matrix.length == 0)
+            return res;
+        int row = 0, col = 0;
+        int rowi = matrix.length - 1, coli = matrix[0].length - 1;
+        while (row <= rowi && col <= coli) {
+            // loop forward
+            for (int i = col; i <= coli; i++) {
+                res.add(matrix[row][i]);
+            }
+            for (int j = row + 1; j <= rowi; j++) {
+                res.add(matrix[j][coli]);
+            }
+            // loop back
+            if (row < rowi && col < coli) {
+                for (int i = coli - 1; i > col; i--) {
+                    res.add(matrix[rowi][i]);
+                }
+                for (int j = rowi; j > row; j--) {
+                    res.add(matrix[j][col]);
+                }
+            }
+            row++;
+            rowi--;
+            col++;
+            coli--;
+        }
+        return res;
+    }
 }
