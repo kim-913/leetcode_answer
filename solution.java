@@ -53,7 +53,7 @@ public class solution {
 
     // LeetCode 54
     // four pointers, memorize when to loop forward and backward, kind of
-    // complecated
+    // complecated, need to keep track of the pointers
     public static List<Integer> spiralOrder(int[][] matrix) {
         List<Integer> res = new ArrayList();
         if (matrix.length == 0)
