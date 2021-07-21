@@ -6,7 +6,7 @@ import java.util.Set;
 /**
  * 7.19
  */
-public class solution {
+public class solution7_19 {
 
     public static void main(String[] args) {
         int[] test = { 1, 3, 3, 4, 6, 6, 5, 8 };
