@@ -45,7 +45,7 @@ public class solution7_21 {
 
     // LeetCode 46 Permutations
     // Difference between permutations and subset is that the index alawys 
-    // start from 0 in the for loop
+    // start from 0 in the for loop, understand the difference
     public static List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
         dfs2(nums, new ArrayList<Integer>(), res);
