@@ -53,4 +53,32 @@ public class solution_7_5 {
         }
         return sum;
     }
+
+    // LeetCode: 338. Counting Bits
+    public int[] countBits(int n) {
+        int[] res = new int[n+1];
+        res[0] = 0;
+        for(int i = 0; i <= n; i++){
+            if(i % 2 == 0) res[i] = res[i/2];
+            else res[i] = res[i/2]+1;
+        }
+            /*
+            res[i] = countN(i);
+        }
+        return res;
+    }
+    public int countN(int num){
+        if(num == 0) return 0;
+        int number = 0;
+        int sum = 0;
+        while(num > 0){
+            if(num%2 == 1) sum++;
+            num = num/2;
+        }
+        return sum;
+        
+    }
+    */
+        return res;
+    }
 }
