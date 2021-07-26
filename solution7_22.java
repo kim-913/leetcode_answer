@@ -66,5 +66,4 @@ public class solution7_22 {
             list.remove(list.size()-1);
         }
     }
-    
 }
