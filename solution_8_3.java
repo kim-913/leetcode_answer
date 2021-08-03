@@ -44,9 +44,6 @@ public class solution_8_3 {
         return dp[prices.length-1][0];
     }
 
-
-
-
     // LeetCode 2. Add Two Numbers
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         int sum = 0;
@@ -80,6 +77,8 @@ public class solution_8_3 {
             slow = slow.next;
             fast = fast.next.next;
             if(fast == slow) {
+                //return slow.next;
+                //need clarification here
                 for(ListNode p = head; p != slow; p = p.next, slow = slow.next) {}
                 return slow;
             }
