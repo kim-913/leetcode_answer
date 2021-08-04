@@ -68,7 +68,7 @@ public class solution_8_3 {
 
 
     // 142. Linked List Cycle II
-    public ListNode detectCycle(ListNode head) {
+    public static ListNode detectCycle(ListNode head) {
         if(head == null) return null;
         if(head != null && head.next == null) return null;
         ListNode slow = head;
@@ -77,11 +77,17 @@ public class solution_8_3 {
             slow = slow.next;
             fast = fast.next.next;
             if(fast == slow) {
-                //return slow.next;
                 //need clarification here
-                for(ListNode p = head; p != slow; p = p.next, slow = slow.next) {}
-                return slow;
+                //return slow.next;
+                //for(ListNode p = head; p != slow; p = p.next, slow = slow.next) {}
+                //return slow;
+                break;
             }
+        }
+        while (slow != null && slow.next != null) {
+            if(head == slow) return head;
+            slow = slow.next;
+            head = head.next;
         }
         return null;
     }
