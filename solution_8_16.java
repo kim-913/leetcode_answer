@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class solution_8_16 {
     
@@ -90,7 +92,7 @@ public class solution_8_16 {
         return res == Integer.MAX_VALUE ? 0 : res;
     }
 
-    // LeetCode 904. Fruit Into Baskets
+    // LeetCode 904. Fruit Into Basket
     public int totalFruit(int[] arr) {
         int res = 0;
         if(arr.length <= 2) return arr.length;
