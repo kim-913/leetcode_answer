@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * solution_9_21
  */
@@ -109,5 +112,47 @@ public class solution_9_21 {
             cur_col--;
         }
         return triangle.get(0).get(0);
+    }
+
+    // LC 46. Permutations
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        if(nums == null || nums.length == 0) return res;
+        dfs(nums, res, new ArrayList<>(), 0);
+        return res;
+    }
+    
+    public void dfs(int[] nums, List<List<Integer>> res, List<Integer> cur, int index){
+        if(cur.size() == nums.length) res.add(new ArrayList<>(cur));
+        for(int i = 0; i < nums.length; i++){
+            if(cur.contains(nums[i])) continue;
+            cur.add(nums[i]);
+            dfs(nums, res, cur, index + 1);
+            cur.remove(cur.size() - 1);
+        }
+    }
+
+
+    // LC 47. Permutations II
+    boolean[] used;
+    public List<List<Integer>> permuteUnique(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        used = new boolean[nums.length];
+        Arrays.sort(nums);
+        if(nums == null || nums.length == 0) return res;
+        dfs(nums, res, new ArrayList<>(), 0);
+        return res;
+    }
+    
+    public void dfs(int[] nums, List<List<Integer>> res, List<Integer> cur, int index){
+        if(cur.size() == nums.length) res.add(new ArrayList<>(cur));
+        for(int i = 0; i < nums.length; i++){
+            if(used[i] || (i > 0 && nums[i] == nums[i - 1] && !used[i - 1])) continue;
+            used[i] = true;
+            cur.add(nums[i]);
+            dfs(nums, res, cur, index + 1);
+            used[i] = false;
+            cur.remove(cur.size() - 1);
+        }
     }
 }
