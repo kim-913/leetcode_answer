@@ -4,6 +4,9 @@ import java.util.List;
 class Node {
     public int val;
     public List<Node> neighbors;
+	public Node child;
+	public Node next;
+	public Node prev;
     public Node() {
         val = 0;
         neighbors = new ArrayList<Node>();
