@@ -134,4 +134,18 @@ public class solution_9_23 {
             }
         }
     }
+
+    // LC 973. K Closest Points to Origin
+    public int[][] kClosest(int[][] points, int k) {
+        Arrays.sort(points, new Comparator<int[]>() {
+                   public int  compare(int[] a, int[] b) {
+                       return (a[0] * a[0] + a[1] * a[1]) - (b[0] * b[0] + b[1] * b[1]);
+                   }
+        });
+        int[][] res = new int[k][2];
+        for(int i = 0; i < k; i++){
+            res[i] = points[i];
+        }
+        return res;
+    }
 }
