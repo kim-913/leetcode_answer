@@ -17,4 +17,109 @@ public class solution_9_27 {
         }
         return s.size();
     }
+
+    // LC 735. Asteroid Collision
+    public int[] asteroidCollision(int[] asteroids) {
+        Stack<Integer> s1 = new Stack<>();
+        Stack<Integer> s2 = new Stack<>();
+        for(int i = asteroids.length - 1; i >= 0; i--){
+            s1.push(asteroids[i]);
+        }
+        //[5,10,-5]
+        s2.push(s1.pop());
+        // [-5]
+        while(!s1.isEmpty()){
+            if(s2.isEmpty()) {
+                s2.push(s1.pop());
+                continue;
+            }
+            /*
+            if(s1.peek() * s2.peek() < 0) {
+                if(s1.peek() < 0) {
+                    s2.add(s1.pop());
+                }else {
+                    if(Math.abs(s1.peek()) < Math.abs(s2.peek())) {
+                    s1.pop();
+                    }else if(Math.abs(s1.peek()) > Math.abs(s2.peek())){
+                        s2.pop();
+                        s2.add(s1.pop());
+                    } else{
+                        s2.pop();
+                        s1.pop();
+                    }
+                }
+            } else{
+                s2.add(s1.pop());
+            }
+            */
+            int left = s2.pop();
+            int right = s1.pop();
+            // no collision
+            if(right > 0 || left < 0) {
+                s2.push(left);
+                s2.push(right);
+            } else if(left + right > 0){
+                s2.push(left);
+            } else if(left + right < 0){
+                s1.push(right);
+            }
+        }
+        int[] res = new int[s2.size()];
+        for(int i = res.length - 1; i >= 0; i--){
+            res[i] = s2.pop();
+        }
+        return res;
+        /*
+        Stack<Integer> s = new Stack<>();
+        for(int i: asteroids){
+            if(i > 0){
+                s.push(i);
+            }else{// i is negative
+                while(!s.isEmpty() && s.peek() > 0 && s.peek() < Math.abs(i)){
+                    s.pop();
+                }
+                if(s.isEmpty() || s.peek() < 0){
+                    s.push(i);
+                }else if(i + s.peek() == 0){
+                    s.pop(); //equal
+                }
+            }
+        }
+        int[] res = new int[s.size()];   
+        for(int i = res.length - 1; i >= 0; i--){
+            res[i] = s.pop();
+        }
+        return res;
+        */
+    }
+
+    // LC 1048. Longest String Chain
+    public int longestStrChain(String[] words) {
+        Arrays.sort(words, (a ,b) -> (a.length() - b.length()));
+        Map<String, Integer> map = new HashMap<>();
+        int res = 1;
+        for(String word: words){
+            // current here is to record the best string chain length and store it inside the map
+            int cur = 1;
+            int n = word.length();
+            // this string builder takes care of each word and deleting each character inside word
+            StringBuilder sb = new StringBuilder(word);
+            for(int i = 0; i < n; i++){
+                char ch = word.charAt(i);
+                sb.deleteCharAt(i);
+                String possible = sb.toString();
+                if(map.containsKey(possible)) {
+                    cur = Math.max(cur, map.get(possible) + 1);
+                }
+                // here, we need to restore the stringbuilder to deleted character
+                if(i < n -1){
+                    sb.insert(i, ch);
+                }
+            } 
+            // put the current prefix word and the its length that satisfy the string chain inside the map
+            map.put(word, cur);
+            res = Math.max(res, cur);
+        }
+        return res;
+    }
 }
