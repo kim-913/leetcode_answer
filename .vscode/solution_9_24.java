@@ -30,7 +30,7 @@ public class solution_9_24 {
         }
         
         // we want to create an add method that add the node to the front of the double linkedlist
-        public void addNode(Node cur){
+        private void addNode(Node cur){
             Node head_next = head.next;
             cur.next = head_next;
             head_next.prev = cur;
@@ -39,7 +39,7 @@ public class solution_9_24 {
         }
         
         // also, we want to create a remove method that removes the current node from the double linkedlist
-        public void removeNode(Node cur){
+        private void removeNode(Node cur){
             Node cur_next = cur.next;
             Node cur_prev = cur.prev;
             cur_prev.next = cur_next;
