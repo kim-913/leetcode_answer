@@ -122,4 +122,44 @@ public class solution_9_27 {
         }
         return res;
     }
+
+
+    //
+    public int numSplits(String s) {
+        /*
+        if(s.length() <= 1) return 0;
+        // brute force worst case O(n^2)
+        Set<Character> left = new HashSet();
+        Set<Character> right = new HashSet();
+        // int split_index = 0;
+        int res = 0;
+        // i represents the split index
+        for(int i = 1; i < s.length(); i++){
+            String l = s.substring(0, i);
+            String r = s.substring(i, s.length());
+            for(char c: l.toCharArray()){
+                left.add(c);
+            }
+            for(char c: r.toCharArray()){
+                right.add(c);
+            }
+            int left_length = left.size();
+            int right_length = right.size();
+            if(left_length == right_length) res++;
+            left.clear();
+            right.clear();
+        }
+        return res;
+        */
+        int rc[] = new int[26], lc[] = new int[26], l = 0, r = 0, res = 0;
+        for (char c : s.toCharArray()) {
+            if (rc[c - 'a']++ == 0) r++;
+        }
+        for (char c : s.toCharArray()) {
+            if (lc[c - 'a']++ == 0) l++;
+            if (--rc[c - 'a'] == 0) r--;
+            if (l == r) res++;
+        }
+        return res;
+    }
 }
