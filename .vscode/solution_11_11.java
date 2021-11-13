@@ -56,4 +56,45 @@ public class solution_11_11 {
         }
     }
 
+
+    //
+
+    public int maxDistToClosest(int[] seats) {
+        List<Integer> list = new ArrayList<>();
+        for(int i = 0; i < seats.length; i++){
+            if(seats[i] == 1) list.add(i);
+        }
+        int res = Math.max(list.get(0) - 0, 1);
+        int curDist = 1;
+        if(list.size() == 1) return Math.max((list.get(0) - 0), (seats.length - 1 - list.get(0)));
+        int prev = list.get(0);
+        for(int i = 1; i < list.size(); i++){
+            curDist = ((list.get(i) + prev) / 2) - prev;
+            if(curDist > res) res = curDist;
+            prev = list.get(i);
+        }
+        if(seats[seats.length - 1] == 0) res = Math.max((seats.length - 1 - list.get(list.size() - 1)), res);
+        return res;
+    }
+    */
+    public int maxDistToClosest(int[] seats) {
+        int len = seats.length;
+        int prev = -1, future = 0;
+        int ans = 0;
+        
+        for(int i = 0; i < len; i++) {
+            if(seats[i] == 1) {
+                prev = i;
+            } else {
+                while(future < len && seats[future] == 0 || future < i) {
+                    future++;
+                }
+                
+                int left = prev == -1 ? len : i - prev;
+                int right = future == len ? len : future - i;
+                ans = Math.max(ans, Math.min(left, right));
+            }
+        }
+        return ans;
+    }
 }
