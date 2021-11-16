@@ -5,8 +5,8 @@ public class solution_11_11 {
 
     }
 
-    int diff = Integer.MAX_VALUE;
-    String res = "";
+    static int diff = Integer.MAX_VALUE;
+    static String res = "";
 
     public static String nextClosestTime(String time) {
         Set<Integer> set = new HashSet<>();

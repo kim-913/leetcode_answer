@@ -75,19 +75,22 @@ public class solution_11_12 {
 
     // LC 443. String Compression
     public int compress(char[] chars) {
-        int index = 0, curIndex = 0;
+        int res = 0, curIndex = 0;
         while (curIndex < chars.length) {
-            char currentChar = chars[curIndex];
+            char cur = chars[curIndex];
             int count = 0;
-            while (curIndex < chars.length && chars[curIndex] == currentChar) {
+            while (curIndex < chars.length && chars[curIndex] == cur) {
                 curIndex++;
                 count++;
             }
-            chars[index++] = currentChar;
-            if (count != 1)
-                for (char c : Integer.toString(count).toCharArray())
-                    chars[index++] = c;
+            chars[res++] = cur;
+            if (count != 1) {
+                for (char c : Integer.toString(count).toCharArray()) {
+                    chars[res++] = c;
+                }
+            }
         }
-        return index;
+        return res;
     }
+
 }
