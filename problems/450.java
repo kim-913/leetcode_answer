@@ -1,9 +1,4 @@
 package problems;
-
-/**
- * 450
- */
-public class 450 {
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
