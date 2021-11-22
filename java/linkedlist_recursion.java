@@ -1,4 +1,4 @@
-import java.util.*;
+package java;
 
 public class linkedlist_recursion {
 
