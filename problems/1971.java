@@ -47,6 +47,9 @@ class Solution {
     }
 
     private int findParent(int child) {
+    // if the parent of the current node is itself, means that it's already the root
+    // otherwise, find the parent node of it's parent node
+    // recursive: from down to up
         return parent[child] == child ? child : (parent[child] = findParent(parent[child]));
     }
 }
