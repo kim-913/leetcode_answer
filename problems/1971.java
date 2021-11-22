@@ -3,6 +3,8 @@ package problems;
 import java.util.*;
 
 class Solution {
+
+    // DFS
     // boolean[] visited;
     // public boolean validPath(int n, int[][] edges, int start, int end) {
     //     Map<Integer, List<Integer>> buildGraph = new HashMap<>();
@@ -29,6 +31,7 @@ class Solution {
     //     return false;
     // }
 
+    // Union Find
     public int[] parent;
     public boolean validPath(int n, int[][] edges, int start, int end) {
         parent = new int[n];
