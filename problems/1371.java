@@ -1,5 +1,4 @@
 package problems;
-import java.util.*;
 class Solution {
     public int findTheLongestSubstring(String s) {
         // since there are only five alphabets that need to be recorded
