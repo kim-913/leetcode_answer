@@ -18,5 +18,4 @@ class Solution {
             ++cnt[mask];
         }
         return res;
-    }
 }
