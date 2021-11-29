@@ -1,5 +1,7 @@
 package problems;
 import java.util.*;
+// similar to 1371, 1915 
+// https://leetcode.com/problems/find-longest-awesome-substring/discuss/779893/C%2B%2BJavaPython3-with-picture-(similar-to-1371)
 class Solution {
     public int longestAwesome(String s) {
         int[] count = new int[1024];
