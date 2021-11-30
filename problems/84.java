@@ -17,7 +17,7 @@ class Solution1 {
             while(cur >= 0 && height[cur] >= height[i]){
                 cur = left[cur];
             }
-            left[cur] = cur;
+            left[i] = cur;
         }
         
         // iterate from right to left
@@ -26,7 +26,7 @@ class Solution1 {
             while(cur < height.length && height[cur] >= height[i]){
                 cur = right[cur];
             }
-            right[cur] = cur;
+            right[i] = cur;
         }
         
         int res = 0;
