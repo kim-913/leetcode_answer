@@ -9,7 +9,8 @@ class Solution1 {
         int maxR = height[r];
         int ans = 0;
         while(l < r){
-            // make sure the reason why we are comparing the global left max and right max is because that the trapped water is determined by these two variables instead of the current left and right.
+            // make sure the reason why we are comparing the global left max and right max is because that 
+            // the trapped water is determined by these two variables instead of the current left and right.
             if(maxL < maxR) {
                 ans += maxL - height[l];
                 maxL = Math.max(maxL, height[++l]);
