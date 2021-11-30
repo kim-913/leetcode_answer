@@ -2,7 +2,8 @@ package problems;
 // bitmask/prefix sum
 class Solution {
     public long wonderfulSubstrings(String word) {
-        long cnt[] = new long[1024], res = 0;
+        long cnt[] = new long[1024]
+        long res = 0;
         int mask = 0;
         cnt[0] = 1;
         for (char ch : word.toCharArray()) {
