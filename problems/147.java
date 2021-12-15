@@ -1,26 +1,18 @@
 class Solution {
-    public ListNode oddEvenList(ListNode head) {
-        ListNode oddHead = new ListNode(0);
-        ListNode oddTail = oddHead;
-        ListNode evenHead = new ListNode(0);
-        ListNode evenTail = evenHead;
+    public ListNode insertionSortList(ListNode head) {
+        ListNode res = new ListNode(-1);
+        ListNode cur = head;
 
-        boolean odd = true;
-        while (head != null) {
-            if (odd) {
-                oddTail.next = head;
-                oddTail = oddTail.next;
-            } else {
-                evenTail.next = head;
-                evenTail = evenTail.next;
+        while (cur != null) {
+            ListNode pre = res;
+            while (pre.next != null && pre.next.val < cur.val) {
+                pre = pre.next;
             }
-            head = head.next;
-            odd = !odd;
+            ListNode next = cur.next;
+            cur.next = pre.next;
+            pre.next = cur;
+            cur = next;
         }
-
-        oddTail.next = evenHead.next;
-        evenTail.next = null;
-
-        return oddHead.next;
+        return res.next;
     }
 }
