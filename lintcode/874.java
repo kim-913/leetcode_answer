@@ -1,10 +1,4 @@
 public class Solution {
-    /**
-     * @param flights: the airline status from the city i to the city j
-     * @param days:    days[i][j] represents the maximum days you could take
-     *                 vacation in the city i in the week j
-     * @return: the maximum vacation days you could take during K weeks
-     */
     public int maxVacationDays(int[][] flights, int[][] days) {
         // Write your code here
         int N = flights.length;
