@@ -48,4 +48,40 @@ class Solution {
         }
         return true;
     }
+
+    // lc 31. Next Permutation
+    class Solution {
+        public void nextPermutation(int[] nums) {
+            // start from last but one, find a pair where prev element < latter
+            int i = nums.length - 2;
+            while (i >= 0 && nums[i] >= nums[i + 1]) {
+                i--;
+            }
+            if (i >= 0) {
+                int j = nums.length - 1;
+                // 找到 后面比前面大的最小数字，然后进行swap
+                // swap完之后将当前位置往后降序排列
+                while (j >= 0 && nums[i] >= nums[j]) {
+                    j--;
+                }
+                swap(nums, i, j);
+            }
+            reverse(nums, i + 1);
+        }
+
+        public void swap(int[] nums, int i, int j) {
+            int temp = nums[i];
+            nums[i] = nums[j];
+            nums[j] = temp;
+        }
+
+        public void reverse(int[] nums, int start) {
+            int left = start, right = nums.length - 1;
+            while (left < right) {
+                swap(nums, left, right);
+                left++;
+                right--;
+            }
+        }
+    }
 }
