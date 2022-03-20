@@ -164,3 +164,106 @@ public static int[] nextGreater(int[] nums){
     }
     return res;
 }
+
+
+
+// LC 227. Basic Calculator II
+class Solution {
+    public int calculate(String s) {
+        // s.trim();
+        int num = 0;
+        char sign = '+';
+        Stack<Integer> stack = new Stack<>();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (Character.isDigit(c))
+                num = num * 10 + c - '0';
+            if (!Character.isDigit(c) && c != ' ' || i == s.length() - 1) {
+                if (sign == '+') {
+                    stack.push(num);
+                } else if (sign == '-') {
+                    stack.push(-num);
+                } else if (sign == '*') {
+                    stack.push(stack.pop() * num);
+                } else if (sign == '/') {
+                    stack.push(stack.pop() / num);
+                }
+                num = 0;
+                sign = s.charAt(i);
+            }
+        }
+        int res = 0;
+        for (int n : stack) {
+            res += n;
+        }
+        return res;
+    }
+}
+
+
+// 901 Online stock span -- stack
+class StockSpanner {
+    Stack<int[]> stack = new Stack<>();
+    public StockSpanner() {
+        
+    }
+    
+    public int next(int price) {
+        int res = 1;
+        while(!stack.isEmpty() && stack.peek()[0] <= price){
+            res += stack.pop()[1];
+        }
+        stack.push(new int[]{price, res});
+        return res;
+    }
+}
+
+
+
+// 496. Next Greater Element I
+class Solution {
+    public int[] nextGreaterElement(int[] nums1, int[] nums2) {
+        Map<Integer, Integer> map = new HashMap<>(); // map from x to next greater element of x
+        Stack<Integer> stack = new Stack<>();
+        for (int num : nums2) {
+            while (!stack.isEmpty() && stack.peek() < num)
+                map.put(stack.pop(), num);
+            stack.push(num);
+        }   
+        for (int i = 0; i < nums1.length; i++)
+            nums1[i] = map.getOrDefault(nums1[i], -1);
+        return nums1;
+    }
+}
+
+
+
+// 402. Remove K Digits
+
+public class Solution {
+    public String removeKdigits(String num, int k) {
+        int len = num.length();
+        //corner case
+        if(k == len) return "0";
+            
+        Deque<Integer> stack = new LinkedList<>();
+        for(int i = 0; i < num.length(); i++){
+            while(k > 0 && !stack.isEmpty() && num.charAt(stack.peek()) > num.charAt(i)){
+                stack.pop();
+                k--;
+            }
+            stack.push(i);
+        }
+        while(k > 0){
+            stack.pop();
+            k--;            
+        }
+        StringBuilder sb = new StringBuilder();
+        while(!stack.isEmpty())
+            sb.append(num.charAt(stack.pop()));
+        sb.reverse();
+        while(sb.length() > 1 && sb.charAt(0) == '0')
+            sb.deleteCharAt(0);
+        return sb.toString();
+    }
+}

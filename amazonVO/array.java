@@ -12,6 +12,7 @@ class Solution {
     }
 }
 
+
 // LC 2104. Sum of Subarray Ranges
 class Solution {
     public long subArrayRanges(int[] nums) {
@@ -132,5 +133,99 @@ class Solution {
                 nums[j++] = nums[i];
         }
         return j;
+    }
+}
+
+
+
+// LC 370. Range Addition
+class Solution {
+    public int[] getModifiedArray(int length, int[][] updates) {
+        int[] res = new int[length];
+        for (int[] update : updates) {
+            int value = update[2];
+            int start = update[0];
+            int end = update[1];
+            res[start] += value;
+            if (end < length - 1)
+                res[end + 1] -= value;
+        }
+
+        int sum = 0;
+        for (int i = 0; i < length; i++) {
+            sum += res[i];
+            res[i] = sum;
+        }
+
+        return res;
+    }
+}
+
+
+// LC 1167. Minimum Cost to Connect Sticks
+class Solution {
+    public int connectSticks(int[] sticks) {
+        int totalCost = 0;
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        for (int stick : sticks) {
+            pq.add(stick);
+        }
+        while (pq.size() > 1) {
+            int stick1 = pq.remove();
+            int stick2 = pq.remove();
+
+            int cost = stick1 + stick2;
+            totalCost += cost;
+
+            pq.add(stick1 + stick2);
+        }
+
+        return totalCost;
+    }
+}
+
+
+// 1268. Search Suggestions System
+class Solution {
+    public List<List<String>> suggestedProducts(String[] products, String searchWord) {
+        // O(nlogn) -quick sort
+        Arrays.sort(products);
+
+        // O(mn)
+        // O(n)
+        List<List<String>> res = new ArrayList<>();
+        for (int i = 1; i <= searchWord.length(); i++) {
+            List<String> list = new ArrayList<>();
+            String prefix = searchWord.substring(0, i);
+            // int count = 0;
+            for (String product : products) {
+                if (product.indexOf(prefix) == 0) {
+                    if (list.size() < 3)
+                        list.add(product);
+                    else
+                        break;
+                }
+            }
+            res.add(list);
+            list = new ArrayList<>();
+        }
+        return res;
+    }
+}
+
+
+// LC 1710. Maximum Units on a Truck
+class Solution {
+    public int maximumUnits(int[][] boxTypes, int truckSize) {
+        Arrays.sort(boxTypes, (a, b) -> b[1] - a[1]);
+        int res = 0;
+        for (int[] box : boxTypes) {
+            int count = Math.min(truckSize, box[0]);
+            res += count * box[1];
+            truckSize -= count;
+            if (truckSize == 0)
+                break;
+        }
+        return res;
     }
 }

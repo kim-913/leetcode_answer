@@ -35,3 +35,27 @@ class Solution {
         return res;
     }
 }
+
+
+// 1151. Minimum Swaps to Group All 1's Together
+class Solution {
+    public int minSwaps(int[] data) {
+        int ones = 0;
+        for (int i = 0; i < data.length; i++)
+            ones += data[i];
+        int left = 0;
+        int zeros = 0;
+        int res = data.length;
+        for (int i = 0; i < data.length; i++) {
+            if (data[i] == 0)
+                zeros++;
+            while (i - left + 1 > ones) {
+                if (data[left++] == 0)
+                    zeros--;
+            }
+            if (i - left + 1 == ones)
+                res = Math.min(res, zeros);
+        }
+        return res;
+    }
+}

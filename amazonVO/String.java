@@ -113,17 +113,19 @@ public class Solution {
 // LC 926. Flip String to Monotone Increasing
 class Solution {
     public int minFlipsMonoIncr(String S) {
-        if (S == null || S.length() <= 1)
-            return 0;
         int n = S.length();
-        int cntEndWithOne = 0, cntEndWithZero = 0;
-
-        for (int i = 0; i < n; i++) {
-            char c = S.charAt(i);
-            cntEndWithOne = Math.min(cntEndWithZero, cntEndWithOne) + (c == '1' ? 0 : 1);
-            cntEndWithZero += (c == '0' ? 0 : 1);
+        int[] prefix = new int[n + 1];
+        for (int i = 1; i <= n; i++) {
+            prefix[i] = prefix[i - 1] + (S.charAt(i - 1) - '0' == 1 ? 1 : 0);
         }
-        return Math.min(cntEndWithOne, cntEndWithZero);
+        // then, the total number of flip for each position is the total number of 1
+        // ones before i that need to be flipped to zero plus the number after this i
+        // that need to be flipped to 1
+        int res = Integer.MAX_VALUE;
+        for (int i = 0; i <= n; i++) {
+            res = Math.min(res, prefix[i] + (n - i - (prefix[n] - prefix[i])));
+        }
+        return res;
     }
 }
 
@@ -251,5 +253,91 @@ class Solution {
             map.put(key, list);
         }
         return new ArrayList<List<String>>(map.values());
+    }
+}
+
+
+// LC 767. Reorganize String
+class Solution {
+    public String reorganizeString(String s) {
+        int[] freq = new int[26];
+        for (char c : s.toCharArray())
+            freq[c - 'a']++;
+        int max = 0;
+        int maxLetter = 0;
+        for (int i = 0; i < freq.length; i++) {
+            if (freq[i] == 0)
+                continue;
+            if (freq[i] > max) {
+                max = freq[i];
+                maxLetter = i;
+            }
+        }
+        if (max > (s.length() + 1) / 2)
+            return "";
+        char[] res = new char[s.length()];
+        int index = 0;
+        while (freq[maxLetter] > 0) {
+            res[index] = (char) (maxLetter + 'a');
+            index += 2;
+            freq[maxLetter]--;
+        }
+        for (int i = 0; i < freq.length; i++) {
+            while (freq[i] > 0) {
+                if (index >= res.length)
+                    index = 1;
+                res[index] = (char) (i + 'a');
+                index += 2;
+                freq[i]--;
+            }
+        }
+        return String.valueOf(res);
+    }
+}
+
+// String Compression
+class Solution {
+    public static String duplicate(String input) {
+        int count = 1;
+        StringBuilder res = new StringBuilder();
+        if (input.length() == 1)
+            return input.charAt(0) + "1";
+        for (int i = 1; i <= input.length(); i++) {
+            while (i < input.length() && input.charAt(i) == input.charAt(i - 1)) {
+                count++;
+                i++;
+            }
+            res.append(input.charAt(i - 1));
+            res.append(count);
+            count = 1;
+        }
+        return res.toString();
+    }
+}
+
+
+// 5. Longest Palindromic Substring
+class Solution {
+    public String longestPalindrome(String s) {
+        int start = 0, end = 0;
+        int max = 0;
+        for (int i = 0; i < s.length(); i++) {
+            int l1 = expand(s, i, i);
+            int l2 = expand(s, i, i + 1);
+            max = Math.max(l1, l2);
+            if (max > end - start) {
+                start = i - (max - 1) / 2;
+                end = i + max / 2;
+            }
+        }
+        return s.substring(start, end + 1);
+    }
+
+    private int expand(String s, int l, int r) {
+        while (l >= 0 && r < s.length() && s.charAt(l) == s.charAt(r)) {
+            l--;
+            r++;
+        }
+        return r - l - 1;
     }
 }

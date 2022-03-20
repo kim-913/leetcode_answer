@@ -77,7 +77,7 @@ class LRUCache {
 }
 
 
-// LC 
+// LC 588. Design In-Memory File System
 public class FileSystem {
     private FileNode root;
 
@@ -455,7 +455,7 @@ class TreeBuilder {
  }
 
 
- // LC 
+ // LC Find median
  class MedianFinder {
      PriorityQueue<Integer> s;
      PriorityQueue<Integer> l;
@@ -486,3 +486,185 @@ class TreeBuilder {
          }
      }
  }
+
+
+ // LC 348. Design Tic-Tac-Toe
+ class TicTacToe {
+     int[][] matrix;
+     int n;
+
+     public TicTacToe(int n) {
+         matrix = new int[n][n];
+         this.n = n;
+     }
+
+     public int move(int row, int col, int player) {
+         matrix[row][col] = player;
+         if (checkRow(row, player) || checkCol(col, player))
+             return player;
+         if (row == col) {
+             if (checkDiag(player))
+                 return player;
+         }
+         if (row + col == n - 1) {
+             if (checkDiag2(player))
+                 return player;
+         }
+         return 0;
+     }
+
+     public boolean checkRow(int row, int player) {
+         for (int i = 0; i < n; i++) {
+             if (matrix[row][i] != player)
+                 return false;
+         }
+         return true;
+     }
+
+     public boolean checkCol(int col, int player) {
+         for (int i = 0; i < n; i++) {
+             if (matrix[i][col] != player)
+                 return false;
+         }
+         return true;
+     }
+
+     public boolean checkDiag(int player) {
+         for (int i = 0; i < n; i++) {
+             if (matrix[i][i] != player)
+                 return false;
+         }
+         return true;
+     }
+
+     public boolean checkDiag2(int player) {
+         for (int i = 0; i < n; i++) {
+             if (matrix[i][n - 1 - i] != player)
+                 return false;
+         }
+         return true;
+     }
+ }
+
+
+
+
+ // Linux find file > 5mb
+ class File {
+     String name;
+     int size;
+     int type;
+     boolean isDirectory;
+     File[] children;
+ }
+
+ abstract class Filter {
+     abstract boolean apply(File file);
+ }
+
+ class MinSizeFilter extends Filter {
+
+     int minSize;
+
+     public MinSizeFilter(int minSize) {
+         this.minSize = minSize;
+     }
+
+     @Override
+     boolean apply(File file) {
+         return file.size > minSize;
+     }
+ }
+
+ class TypeFilter extends Filter {
+
+     int type;
+
+     public TypeFilter(int type) {
+         this.type = type;
+     }
+
+     @Override
+     boolean apply(File file) {
+         return file.type == type;
+     }
+ }
+
+ class FindCommand {
+
+     public List<File> findWithFilters(File directory, List<Filter> filters) {
+         if (!directory.isDirectory) {
+             return new NotADirectoryException();
+         }
+         List<File> output = new ArrayList<>();
+         findWithFilters(directory, filters, output);
+         return output;
+     }
+
+     private void findWithFilters(File directory, List<Filter> filters, List<File> output) {
+         if (directory.children == null) {
+             return;
+         }
+         for (File file : directory.children) {
+             if (file.isDirectory) {
+                 findWithFilters(file, filters, output);
+             } else {
+                 boolean selectFile = true;
+                 for (Filter filter : filters) {
+                     if (!filter.apply(file)) {
+                         selectFile = false;
+                     }
+                 }
+                 if (selectFile) {
+                     output.add(file);
+                 }
+             }
+         }
+     }
+ }
+
+
+
+ // Student registration class system
+ class Registration {
+        class Course {
+            List<Student> curStudent;
+            int capacity;
+            String course;
+            public Course(){
+                
+            }
+            public boolean canAdd(){
+                return s.curStudent.size() < capacity;
+            }
+        }
+        
+        class Student {
+            List<Course> courses;
+            public Student(Integer id){
+                
+            }
+        }
+        Set<Student> studentList;
+        public Registration(Set<Student> courses){
+            this.studentList = studentList;
+        }
+        
+        public void addStudent(Student s){
+            studentList.add(s);
+        }
+        
+        public void delete(Course course, Student s){
+            if(!studentList.contains(s)) return;
+            studentList.get(s).courses.remove();
+        }
+        
+        public void update(Course course, Student s){
+            
+        }
+        
+        public void add(Course course, Student s){
+            if(course.canAdd()) s.courses.add(course);
+        }
+    }
+}

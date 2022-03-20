@@ -15,6 +15,19 @@ class Solution {
 
 // LC 828. Count Unique Characters of All Substrings of a Given String
 /*
+ * Let's think about how a character can be found as a unique character.
+ * 
+ * Think about string "XAXAXXAX" and focus on making the second "A" a unique
+ * character.
+ * We can take "XA(XAXX)AX" and between "()" is our substring.
+ * We can see here, to make the second "A" counted as a uniq character, we need
+ * to:
+ * 
+ * insert "(" somewhere between the first and second A
+ * insert ")" somewhere between the second and third A
+ * For step 1 we have "A(XA" and "AX(A", 2 possibility.
+ * For step 2 we have "A)XXA", "AX)XA" and "AXX)A", 3 possibilities.
+ 
  * index[26][2] record last two occurrence index for every upper characters.
  * Initialise all values in index to -1.
  * Loop on string S, for every character c, update its last two occurrence index
@@ -186,6 +199,102 @@ class Solution {
         int res = 0;
         for (int c : dp) {
             res = Math.max(res, c);
+        }
+        return res;
+    }
+}
+
+
+// LC 6. Zigzag Conversion
+class Solution {
+    public String convert(String s, int numRows) {
+        if (numRows == 1)
+            return s;
+        List<StringBuilder> list = new ArrayList<>();
+        for (int i = 0; i < numRows; i++)
+            list.add(new StringBuilder());
+        boolean goingDown = false;
+        int curRow = 0;
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            list.get(curRow).append(c);
+            if (curRow == 0 || curRow == numRows - 1)
+                goingDown = !goingDown;
+            curRow += goingDown ? 1 : -1;
+        }
+        StringBuilder res = new StringBuilder();
+        for (StringBuilder sb : list) {
+            res.append(sb);
+        }
+        return res.toString();
+    }
+}
+
+
+
+// LC 926. Flip String to Monotone Increasing
+class Solution {
+    public int minFlipsMonoIncr(String S) {
+        int n = S.length();
+        int[] prefix = new int[n + 1];
+        for (int i = 1; i <= n; i++) {
+            prefix[i] = prefix[i - 1] + (S.charAt(i - 1) - '0' == 1 ? 1 : 0);
+        }
+        // then, the total number of flip for each position is the total number of 1
+        // ones before i that need to be flipped to zero plus the number after this i
+        // that need to be flipped to 1
+        int res = Integer.MAX_VALUE;
+        for (int i = 0; i <= n; i++) {
+            res = Math.min(res, prefix[i] + (n - i - (prefix[n] - prefix[i])));
+        }
+        return res;
+    }
+}
+
+
+
+//
+class Solution {
+    public boolean wordBreak(String s, List<String> wordDict) {
+        Set<String> dict = new HashSet(wordDict);
+        int maxLen = 0;
+        for (String word : wordDict)
+            maxLen = Math.max(maxLen, word.length());
+        boolean[] dp = new boolean[s.length() + 1]; // dp[i]: the word end with s[i - 1] can be divided or not
+        dp[0] = true;
+        for (int i = 1; i <= s.length(); i++) {
+            for (int j = i - 1; j >= 0 && j >= i - maxLen; j--) {
+                if (dp[j] && dict.contains(s.substring(j, i))) {
+                    dp[i] = true;
+                    break;
+                }
+            }
+        }
+        return dp[s.length()];
+    }
+}
+
+
+// LC 1567. Maximum Length of Subarray With Positive Product
+class Solution {
+    public int getMaxLen(int[] nums) {
+        int res = 0;
+        int pos = 0;
+        int neg = 0;
+
+        for (int num : nums) {
+            if (num == 0) {
+                pos = 0;
+                neg = 0;
+            } else if (num > 0) {
+                pos++;
+                neg = neg == 0 ? 0 : neg + 1;
+            } else {
+                int temp = pos;
+                pos = neg == 0 ? 0 : neg + 1;
+                neg = temp + 1;
+            }
+            res = Math.max(res, pos);
         }
         return res;
     }

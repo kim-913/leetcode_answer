@@ -149,3 +149,46 @@ class Solution {
         return res;
     }
 }
+
+
+// LC 1048. Longest String Chain
+class Solution {
+    public int longestStrChain(String[] words) {
+        Arrays.sort(words, (a, b) -> a.length() - b.length());
+        Map<String, Integer> map = new HashMap<>();
+        int res = 1;
+        for (int i = 0; i < words.length; i++) {
+            String word = words[i];
+            StringBuilder sb = new StringBuilder(word);
+            int cur = 1;
+            for (int j = 0; j < word.length(); j++) {
+                char c = word.charAt(j);
+                sb.deleteCharAt(j);
+                String possible = sb.toString();
+                if (map.containsKey(possible)) {
+                    cur = Math.max(cur, map.get(possible) + 1);
+                }
+                if (j < word.length())
+                    sb.insert(j, c);
+            }
+            map.put(word, cur);
+            res = Math.max(res, cur);
+        }
+        return res;
+    }
+}
+
+
+// 1010. Pairs of Songs With Total Durations Divisible by 60
+class Solution {
+    public int numPairsDivisibleBy60(int[] time) {
+        int n = time.length;
+        Map<Integer, Integer> map = new HashMap<>();
+        int res = 0;
+        for (int num : time) {
+            res += map.getOrDefault((60 - num % 60) % 60, 0);
+            map.put(num % 60, map.getOrDefault(num % 60, 0) + 1);
+        }
+        return res;
+    }
+}
