@@ -1,5 +1,28 @@
 {
-    "java.project.sourcePaths": [
-        ""
-    ]
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
+    },
+    "git.autofetch": true,
+    "files.autoSave": "onFocusChange",
+    "editor.fontSize": 15,
+    "workbench.colorTheme": "Darcula Theme from IntelliJ",
+    "editor.formatOnType": true,
+    "editor.formatOnPaste": true,
+    "java.saveActions.organizeImports": true,
+    "java.completion.importOrder": [
+        "java",
+        "javax",
+        "com",
+        "org"
+    ],
+    "java.completion.imports.enabled": true,
+    "java.format.settings.url": "",
+    "java.format.settings.profile": "GoogleStyle", // Or your preferred style
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave.source.organizeImports": true
 }
